@@ -40,4 +40,91 @@ router.get('/student-details/:name', function(req, res){
     res.send('Dummy response')
 })
 
+
+
+
+
+
+
+
+
+//<------   Question1   --------->
+
+
+router.get('/movies', function(req, res){
+    let arr=["Lakshya","Shershaah","Border","LOC Kargil"]
+    res.send(arr)
+})
+
+
+//<---------   Question2  ------->
+
+
+router.get('/movies2/:indexNumber', function(req,res){
+    let arr1=['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
+    let para=req.params.indexNumber
+    res.send(arr1[para])
+})
+
+
+//<---------   Question3   ---------->
+
+router.get('/movies3/:indexNumber',function(req , res){
+    let arr1=['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
+    let para1=req.params.indexNumber
+    if(para1 >=arr1.length){
+        res.send("enter valid value")
+    }
+    else{
+    res.send(arr1[para1])
+    }
+
+});
+
+
+//<---------   Question 4 & 5    -------->
+
+router.get('/films1',function(req,res){
+    let film=[ {
+        'id': 1,
+        'name': 'The Shining'
+       }, {
+        'id': 2,
+        'name': 'Incendies'
+       }, {
+        'id': 3,
+        'name': 'Rang de Basanti'
+       }, {
+        'id': 4,
+        'name': 'Finding Nemo'
+       }]
+    res.send(film)
+       
+})
+
+
+router.get('/films2/:filmId',function(req,res){
+    let film1=[ {
+        'id': 1,
+        'name': 'The Shining'
+       }, {
+        'id': 2,
+        'name': 'Incendies'
+       }, {
+        'id': 3,
+        'name': 'Rang de Basanti'
+       }, {
+        'id': 4,
+        'name': 'Finding Nemo'
+       }]
+    
+       let res5=req.params.filmId
+       for(let i=0;i<film1.length;i++){
+        if(film1[i].id==res5){
+           return res.send(film1[i])
+        } 
+       }
+       return res.send("No Movie found")
+})
+
 module.exports = router;
