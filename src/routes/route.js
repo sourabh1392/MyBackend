@@ -42,7 +42,7 @@ router.get("/test-api-6" , function(req, res) {
 })
 
 router.post("/test-post", function(req, res) {
-    res.send([ 23, 45 , 6])
+    res.send([ 23, 45 , 6,7])
 })
 
 
@@ -68,6 +68,35 @@ router.post("/test-post-4", function(req, res) {
     let ele= req.body.element
     arr.push(ele)
     res.send(  { msg: arr , status: true }  )
+})
+
+
+
+
+const arr=[{
+    "name":"manish",
+    "dob":"1/10/78",
+    "gender":"male"
+
+},
+{
+    "name":"sourabh",
+    "dob":"14//5/01",
+    "gender":"male"
+}
+]
+router.post('/test-player', function(req,res){
+    const details=req.body;
+    const details1=details.name;
+    for(let i=0;i<arr.length ;i++)
+    {
+        if(details1==arr[i].name){
+            res.send("Player already exist")
+        }  
+    }
+    arr.push(details)
+    console.log(arr)
+    res.send("details entered")
 })
 
 module.exports = router;
