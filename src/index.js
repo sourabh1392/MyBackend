@@ -21,7 +21,7 @@ mongoose.connect("mongodb+srv://SourabhPatil1392:Patils1392@newproject.orvb1ly.m
 
 //<-------Assignment------>
 const date1 = new Date
-app.use('/',
+app.use(
     function (req, res, next) {
         console.log(date1, IP.address(), req.path)
         next()
