@@ -17,11 +17,11 @@ const createOrder = async (req, res) => {
     let checkUserId = mongoose.Types.ObjectId.isValid(data.userId)  //return valid userId or not
     let checkProductId = mongoose.Types.ObjectId.isValid(data.productId)   //return valid productId or not
 
-    if (!data.userId) return res.send("userId  is not writen")    //check userId is present or not
+    if (!data.userId) return res.send("userId  is not written")    //check userId is present or not
     else if (checkUserId == false) return res.send("userId  is incorrect")  //check user entered valid userId or not
 
-    if (!data.productId) return res.send("productId OR is not writen")  //check productId present or not
-    else if (checkProductId == false) return res.send("productId OR is incorrect")  //check user entered valid productId or not
+    if (!data.productId) return res.send("productId is not written")  //check productId present or not
+    else if (checkProductId == false) return res.send("productId  is incorrect")  //check user entered valid productId or not
 
 
     let user = await userModel.findById(data.userId)

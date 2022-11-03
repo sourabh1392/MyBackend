@@ -1,7 +1,7 @@
 const userModel = require("../models/userModel")
 
 const createUser= async function(req,res){
-    user=req.body
+    let user=req.body
     const create=await userModel.create(user)
     return res.send({msg:create})
 }

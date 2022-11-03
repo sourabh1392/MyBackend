@@ -7,7 +7,7 @@ const commonMW = require ("../middlewares/commonMiddlewares")
 
 
 router.post("/createUser",commonMW.midd1,userController.createUser)
-router.post("/createProduct",commonMW.midd1,productController.createProduct)
+router.post("/createProduct",productController.createProduct)
 router.post("/createOrder",commonMW.midd1,orderController.createOrder)
 
 module.exports = router;
