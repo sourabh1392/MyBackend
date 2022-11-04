@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const userController= require("../controllers/userController")
+const middleware=require("../middleware/auth")
 
 router.post("/users", userController.createUser  )
 
 router.post("/login", userController.loginUser)
 
-//The userId is sent by front end
-router.get("/getUserData/:userId", userController.getUserData)
+router.get("/getUserData/:userId",middleware.auth, userController.getUserData)
 
-router.put("/updateUser/:userId", userController.updateUser)
+router.put("/updateUser/:userId", middleware.auth, userController.updateUser)
 
-router.delete("/deleteUser/:userId",userController.deleteUser)
+router.delete("/deleteUser/:userId",middleware.auth, userController.deleteUser)
 
 module.exports = router;
