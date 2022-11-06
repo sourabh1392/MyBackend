@@ -18,7 +18,6 @@ const loginUser=async (req,res)=>{
 
 const getUserData=async (req,res)=>{
     const userId=req.params.userId
-    if(userId!=userModel._id)return res.send("userId is incorrect")
     const verifyuser=await userModel.findById(userId)
     if(!verifyuser) return res.send("Please enter a valid user")
     else return res.send({status:"verified",data:verifyuser})
