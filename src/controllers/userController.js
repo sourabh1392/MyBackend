@@ -25,8 +25,10 @@ const getUserData=async (req,res)=>{
 
 const updateUser=async(req,res)=>{
     const user2=req.params.userId
+    let user = await userModel.findById(user2);
+    if(!user)  return res.send("No such user exists");
     const data=req.body
-    const update=await userModel.findOneAndUpdate({userId:user2},{$set:data},{new:true})
+    const update=await userModel.findOneAndUpdate({_id:user2},{$set:data},{new:true})
     return res.send({msg:"Details Updated"})
 }
 
