@@ -13,7 +13,7 @@ const loginUser=async (req,res)=>{
     let userdetail=await userModel.findOne({emailId:user1.emailId,password:user1.password})
     if(!userdetail) return res.send("Please enter valid user")
     let jwttoken= jwt.sign({userId:user1._id.toString(),password:user1.password},"pass123")
-    return res.headers({"x-auth-token":jwttoken})
+    return res.setHeader({"x-auth-token":jwttoken})
 }
 
 const getUserData=async (req,res)=>{
