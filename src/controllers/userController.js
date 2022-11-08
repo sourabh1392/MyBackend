@@ -4,39 +4,65 @@ const userModel = require("../models/userModel");
 
 //<-----Assignment------>
 const createUser = async function (req, res) {
+  try{
   let data = req.body;
   let savedData = await userModel.create(data);
-  res.send({ msg: savedData });
+  res.status(201).send({ msg: savedData });
+  }
+  catch(error){
+    return res.status(500).send(error.message)
+  }
 };
 
 const loginUser = async function (req, res) {
+  try{
   let user1 = req.body.emailId
   let user2= req.body.password
   let user=req.body
   let userdetail = await userModel.findOne({ emailId: user1, password: user2})
-  if (!userdetail) return res.send("UserId or Password is Incorrect")
+  if (!userdetail) return res.status(400).send("UserId or Password is Incorrect")
   let jwttoken = jwt.sign({ userId: userdetail._id.toString(), password: userdetail.password }, "pass123")
   res.setHeader('x-auth-token', jwttoken )
-  res.send({msg:true})
-  
+  res.status(200).send({msg:true})
+  }
+  catch(error){
+    return res.status(500).send(error.message)
+  }
 };
 
 const getUserData = async function (req, res) {
+  try{
   const verifyuser=await userModel.findById(req.userId)
-  if(!verifyuser) return res.send("Please enter a valid user")
-  else return res.send({status:"verified",data:verifyuser})
+  if(!verifyuser) return res.status(404).send("user Not found")
+  else return res.status(200).send({status:"verified",data:verifyuser})
+  }
+  catch(error){
+      return res.status(500).error(error.message)
+  }
 };
 
 const updateUser = async function (req, res) {
+  try{
   const data=req.body
-  const update=await userModel.findOneAndUpdate({_id:req.userId},{$set:data},{new:true})
-  return res.send({msg:"Details Updated"})
+  const val=Object.keys(data)
+  if(val.length==0) return res.status(400).send("Enter some data to update")
+  const updates=await userModel.findOneAndUpdate({_id:req.userId},{$set:data},{new:true})
+  return res.status(201).send({msg:"Details Updated"})
+  }
+  catch(error){
+    return res.status(500).send(error.message)
+  }
 };
 
 const deleteUser =async function(req,res){
+  try{
     const deletdata=await userModel.findOneAndUpdate({_id:req.userId},{$set:{isdeleted:true}},{new:true})
-    return res.send({msg:"Details Deleted"})
-}
+    return res.status(200).send({msg:"Details Deleted"})
+  }
+  catch(error){
+    return res.status(500).send(error.message)
+  }
+};
 
 
 
